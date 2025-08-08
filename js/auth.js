@@ -1,64 +1,56 @@
-import {db} from './firebase-config'
-import { getDocs, query,collection,where } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { db } from './firebase-config.js';
+import { getDocs, query, collection, where, limit } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-const sha256 = async (text) =>{
-    const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
-    return Array.from(new UintBArray(buffer)).map(b=>b.toString)
-}
-
+// Función para hashear con SHA-256
+const sha256 = async (text) => {
+    const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(buffer))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+};
 
 document.addEventListener('DOMContentLoaded', () => {
-const loginForm = document.getElementById('loginForm')
+    const loginForm = document.getElementById('loginForm');
 
-if(loginForm){
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-    loginForm.addEventListener('submit',async (e) => {
-        const usuario = loginForm.usuario.value
-        const password = loginForm.password.value
+            const usuario = loginForm.usuario.value.trim();
+            const password = loginForm.password.value.trim();
 
-        try{
-            const hashed = await sha256(password)
-            const usuarios = collection(db, 'usuarios')
-            const search = query(usuarios,where('usuarios', '==', usuario ))
-            const exist = await getDocs(search)
-            
-            if(exist.empty){
-                alert('Usuario no encontrado')
-                return
+            try {
+                const hashed = await sha256(password);
 
-            }
+                // Buscar solo 1 usuario
+                const usuariosRef = collection(db, 'usuarios');
+                const search = query(usuariosRef, where('usuario', '==', usuario), limit(1));
+                const snapshot = await getDocs(search);
 
-            let loggedIn = false
-            usuarios.forEach((usuario) => {
-                const data = usuario.data()
+                if (snapshot.empty) {
+                    alert('Usuario no encontrado');
+                    return;
+                }
 
-                if(data.password == hashed){
-                    const token = btoa (JSON.stringify({
-                        
+                const docSnap = snapshot.docs[0];
+                const data = docSnap.data();
+
+                if (data.password === hashed) {
+                    const token = btoa(JSON.stringify({
                         usuario: data.usuario,
                         uid: docSnap.id,
-                        exp: date
-                        password: data.password
+                        exp: Date.now() + (60 * 60 * 1000) // Expira en 1 hora
+                    }));
 
-                    }))
-                    sessionStorage.setItem('token', token)
-                    loggedIn = true
-
-                }
-
-                if(loggedIn){
-                    window.location.href = 'home.html'
+                    sessionStorage.setItem('token', token);
+                    window.location.href = 'home.html';
                 } else {
-                    alert('Pagina no encontrada')
+                    alert('Contraseña incorrecta');
                 }
-
-            })
-
-        }catch(error){
-            alert('Eroor al iniciar secion')
-        }
-
-    })
-}
-
-})
+            } catch (error) {
+                console.error(error);
+                alert('Error al iniciar sesión');
+            }
+        });
+    }
+});

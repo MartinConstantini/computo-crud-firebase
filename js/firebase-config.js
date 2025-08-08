@@ -1,17 +1,16 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getfirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-  
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
 const firebaseConfig = {
-    apiKey: "AIzaSyDeiBBkOofPc-KnDbXOJ62WwW8CIAgdxq4",
-    authDomain: "mars-computo-ad2025-b749c.firebaseapp.com",
-    projectId: "mars-computo-ad2025-b749c",
-    storageBucket: "mars-computo-ad2025-b749c.firebasestorage.app",
-    messagingSenderId: "489426893265",
-    appId: "1:489426893265:web:1e92b77435b5d43c1948f0"
+  apiKey: "AIzaSyA0m_hXM5iRk3g6HGeXmdBtJlwlh0jE_u4",
+  authDomain: "mars-computo-ad2025-415fa.firebaseapp.com",
+  projectId: "mars-computo-ad2025-415fa",
+  storageBucket: "mars-computo-ad2025-415fa.firebasestorage.app",
+  messagingSenderId: "833077115215",
+  appId: "1:833077115215:web:42cb27c0348ede3ed52d3a"
 };
 
-  
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(ap)
+const db = getFirestore(app);
 
-export { db }
+export { db };
