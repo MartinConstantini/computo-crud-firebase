@@ -32,9 +32,12 @@ if(loginForm){
             usuarios.forEach((usuario) => {
                 const data = usuario.data()
 
-                if(data.password == password){
+                if(data.password == hashed){
                     const token = btoa (JSON.stringify({
+                        
                         usuario: data.usuario,
+                        uid: docSnap.id,
+                        exp: date
                         password: data.password
 
                     }))
