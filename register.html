@@ -9,7 +9,49 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </head>
 <body class="cotainer py-5">
-    
+    <div class="row justify-content-center">
+        <div class="col-md10">
+            <div class="card shadow">
+            <h3 class="card-title text-center md3"> Registra usuario</h3>
+            <form id="registerForm">
+                <div class="card-body">
+                <div class=" row g-2">
+                   <div class="col-md4">
+                    <input type="text" name="nombre" id="nombre" placeholder="Nombre" required class="form-control">
+                   </div>
+                   <div class=" row g-2">
+                   <div class="col-md4">
+                    <input type="text" name="apaterno" id="apaterno" placeholder="Apaterno" required class="form-control">
+                   </div> 
+                   <div class=" row g-2">
+                   <div class="col-md4">
+                    <input type="text" name="amaterno" id="amaterno" placeholder="Amaterno" required class="form-control">
+                   </div>
+                   <div class="mt-2">
+                    <input type="text" name="direccion" id="direccion" placeholder="Direccion" required class="form-control">
+                    </div>
+                    <div class="mt-2">
+                    <input type="text" name="telefono" id="telefono" placeholder="telefono" required class="form-control">
+                    </div>
+                    <div class="mt-2">
+                    <input type="text" name="usuario" id="usuario" placeholder="Usuario" required class="form-control">
+                    </div>
+                    <div class="mt-2">
+                    <input type="text" name="password" id="password" placeholder="password" required class="form-control">
+                    </div>  
+                </div>
+                </div>
+                <div class=" gap-2-mt-3">
+                    <button class="btn btn-success" type="submit">
+                        <i class="bi bi-floppy2"></i>
+                        Registrar
+                    </button>
+                    <a href="index.html" class="btn-btn-link">Volver a login</a>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
     <script type="module" src="./js/register.js"></script>
 
